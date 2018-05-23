@@ -45,6 +45,15 @@
       }
     }
 
+    @keyframes blink {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
     .body {
       display: flex;
       flex-direction: column;
@@ -57,18 +66,25 @@
 
     .link {
       display: block;
-      border-radius: 5px;
+      border-radius: 2px;
       border: 1px solid gray;
       padding: .6em 1em;
       color: #555;
       text-decoration: none;
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      transition: .3s;
+      transition: .2s;
     }
 
     .link::before {
       content: '>';
+      color: gray;
       margin-right: .5em;
+    }
+
+    .link::after {
+      content: '_';
+      color: gray;
+      animation: blink 0.3s infinite alternate;
     }
 
     .link:hover,
@@ -76,13 +92,45 @@
       background-color: #555;
       color: #ddd;
     }
+
+    .link.clicked {
+      opacity: 0;
+    }
   </style>
 </head>
 
 <body class="body">
-  <a class="link" href="https://github.com/kamataryo" ontouchstart="">npx kamataryo github</a>
+  <a class="link" id="link" href="https://github.com/kamataryo" ontouchstart=""></a>
   <script>
+    const link = document.getElementById('link')
     window.addEventListener('touchmove', e => e.preventDefault())
+
+    const command = 'npx kamataryo github'
+
+    link.addEventListener('click', e => {
+      e.preventDefault()
+      link.classList.add('clicked')
+      setTimeout(() => window.location.href = link.getAttribute('href'), 200)
+    })
+
+    const type = async (str, element) => {
+      for (char of str.split('')) {
+        await new Promise(
+          resolve => setTimeout(
+            () => {
+              element.innerText += char
+              resolve()
+            },
+            char === ' ' ?
+            500 : 50,
+          )
+        )
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => type(command, link), 1000 + 500) // consider body fade in
+    })
   </script>
 </body>
 
