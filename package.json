@@ -4,7 +4,8 @@
   "description": "My another website.",
   "main": "index.js",
   "scripts": {
-    "test": "ls index.html && ls icon.png"
+    "build": ".bin/build.sh",
+    "test": "ls ./docs/index.html && ls ./docs/icon.png"
   },
   "repository": {
     "type": "git",

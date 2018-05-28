@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>kamataryo's profile</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta property="og:title" content="kamataryo's profile" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://www.ritsumei.ac.jp/~rkr18041/" />
+  <meta property="og:image" content="http://www.ritsumei.ac.jp/~rkr18041/icon.png" />
+  <meta property="og:site_name" content="kamataryo's profile" />
+  <meta property="og:description" content="kamataryo's profile" />
+  <link rel="shortcut icon" href="icon.png">
+  <style>
+    html,
+    body,
+    a {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-weight: normal;
+      font: inherit;
+      vertical-align: baseline;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0
+      }
+      100% {
+        opacity: 1
+      }
+    }
+
+    @keyframes blink {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1s ease 0s 1 normal;
+    }
+
+    .link {
+      display: block;
+      border-radius: 2px;
+      border: 1px solid gray;
+      padding: .6em 1em;
+      color: #555;
+      text-decoration: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      transition: .2s;
+      font-size: 16px;
+      font-family: "Courier New", Consolas, monospace;
+    }
+
+    .link::before {
+      content: '>';
+      color: gray;
+      margin-right: .5em;
+    }
+
+    .link::after {
+      content: '_';
+      color: gray;
+      animation: blink 0.3s infinite alternate;
+    }
+
+    .link:hover,
+    .link:active {
+      background-color: #555;
+      color: #ddd;
+    }
+
+    .link.clicked {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body class="body">
+  <a class="link" id="link" href="https://github.com/kamataryo" ontouchstart="">npx kamataryo github</a>
+  <script>
+    // prevent scroll
+    window.addEventListener('touchmove', e => e.preventDefault())
+
+    const link = document.getElementById('link')
+    const command = link.innerText
+    const type = async (str, element) => {
+      for (char of str.split('')) {
+        await new Promise(
+          resolve => setTimeout(
+            () => {
+              element.innerText += char
+              resolve()
+            },
+            char === ' ' ?
+            500 : 50,
+          )
+        )
+      }
+    }
+
+    // link element initialization
+    link.innerText = ''
+    link.addEventListener('click', e => {
+      e.preventDefault()
+      link.classList.add('clicked')
+      setTimeout(() => window.location.href = link.getAttribute('href'), 200)
+    })
+
+    // ready!
+    document.addEventListener('DOMContentLoaded', () =>
+      setTimeout(() => type(command, link), 1000 + 500) // consider body fade in
+    )
+  </script>
+</body>
+
+</html>
