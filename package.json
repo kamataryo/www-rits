@@ -1,0 +1,19 @@
+{
+  "name": "www-rits",
+  "version": "1.0.0",
+  "description": "My another website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ls index.html && ls icon.png"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamataryo/www-rits.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamataryo/www-rits/issues"
+  },
+  "homepage": "https://github.com/kamataryo/www-rits#readme"
+}
